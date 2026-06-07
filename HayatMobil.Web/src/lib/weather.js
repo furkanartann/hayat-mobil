@@ -1,0 +1,31 @@
+﻿export const formatWeatherCondition = (cond) => {
+  const map = {
+    'Parcali Bulutlu': 'Parçalı Bulutlu',
+    'Az Bulutlu': 'Az Bulutlu',
+    'Kapali': 'Kapalı',
+    'Siddetli Yagmur': 'Şiddetli Yağmur',
+    'Hafif Yagmur': 'Hafif Yağmur',
+    'Yagmur': 'Yağmur',
+    'Sagank Yagmur': 'Sağanak',
+    'Siddetli Sagank': 'Şiddetli Sağanak',
+    'Firtina': 'Fırtına',
+    'Dolu Firtinasi': 'Dolu Fırtınası',
+    'Firtina Uyari': 'Fırtına Uyarısı',
+    'Yogun Sis': 'Yoğun Sis',
+    'Cisenti': 'Çisenti',
+    'Donan Cisenti': 'Dondurucu Çisenti',
+    'Donan Yagmur': 'Dondurucu Yağmur',
+    'Hafif Kar': 'Hafif Kar',
+    'Kar Yagisi': 'Kar Yağışı',
+    'Siddetli Kar': 'Şiddetli Kar',
+    'Kar Taneleri': 'Kar Taneleri',
+    'Kar Saganagi': 'Kar Sağanağı',
+    'Siddetli Kar Saganagi': 'Şiddetli Kar Sağanağı',
+    'Acik Hava': 'Açık',
+    'Normal': 'Normal',
+    'Dusuk': 'Düşük',
+    'Yuksek': 'Yüksek',
+    'Yok': 'Yok',
+  };
+  return map[cond] || cond;
+};

@@ -1,0 +1,23 @@
+{
+  "id": "/",
+  "name": "Hayat Mobil — Afet Yönetim Sistemi",
+  "short_name": "Hayat Mobil",
+  "description": "Afet yönetimi ve saha koordinasyonu",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "lang": "tr",
+  "categories": ["utilities", "productivity"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/hayat-mobil-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

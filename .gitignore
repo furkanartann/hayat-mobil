@@ -1,0 +1,19 @@
+# Build outputs
+dist/
+**/bin/
+**/obj/
+**/wwwroot/assets/
+
+# Dependencies
+**/node_modules/
+
+# Runtime data
+**/HayatMobil.db
+**/HayatMobil.db-*
+
+# IDE / OS
+.vs/
+.idea/
+*.user
+Thumbs.db
+.DS_Store
