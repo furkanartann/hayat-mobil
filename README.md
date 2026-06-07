@@ -1,90 +1,151 @@
+<div align="center">
+
+<img src="HayatMobil.Web/public/hayat-mobil-logo.png" alt="Hayat Mobil" width="120" />
+
 # Hayat Mobil
 
-Afet yönetim sistemi — ASP.NET Core Web API + React PWA.
+**Afet ve acil durumlarda ihtiyaç sahipleri ile yardım ekiplerini bir araya getiren koordinasyon platformu**
 
-## Proje yapısı
+[![.NET](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![SQLite](https://img.shields.io/badge/SQLite-Yerel-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![PWA](https://img.shields.io/badge/PWA-Mobil%20uyumlu-5A0FC8)](https://web.dev/progressive-web-apps/)
 
-```
-HayatMobil.Api/     Backend (API + statik dosya sunucusu)
-HayatMobil.Web/     Frontend (React + Vite)
-```
+[Özellikler](#özellikler) · [Kurulum](#kurulum) · [Canlı demo](#canlı-demo) · [Proje yapısı](#proje-yapısı) · [Geliştirici](#geliştirici)
 
-Statik görseller (logo, ikon, PWA) `HayatMobil.Web/public/` altındadır; build sonrası `HayatMobil.Api/wwwroot/` içine kopyalanır.
+</div>
 
-## Gereksinimler
+---
+
+## Hakkında
+
+**Hayat Mobil**, afet ve acil durumlarda afetzede, saha personeli ve kriz komuta merkezinin aynı sistem üzerinden çalışmasını sağlayan tam yığın (full-stack) bir web uygulamasıdır.
+
+Taleplerin takibi, harita üzerinden yönlendirme ve saha operasyonlarının yönetimi tek panelde sunulur. Mobil uyumlu arayüzü sayesinde kriz anında hem merkezden hem sahadan hızlı erişim hedeflenir.
+
+## Özellikler
+
+| Modül | Açıklama |
+|-------|----------|
+| **SOS & Talep Yönetimi** | Gıda, su, barınma, sağlık, güvenlik ve kurtarma talepleri; triyaj ve durum takibi |
+| **Kriz Komuta Merkezi (PM)** | Personel atama, afet ilanı, toplanma noktaları, sensör ve AI uyarıları |
+| **Canlı Harita** | Afet bölgesi, rota planlama, ETA tahmini, konum paylaşımı |
+| **Lojistik** | Envanter, malzeme dağıtımı, lojistik ekibi ataması |
+| **Sağlık** | Paramedik ve doktor iş akışları, tıbbi kayıtlar |
+| **Arama Kurtarma** | Kayıp kişi bildirimi, sivil arama, saha görevleri |
+| **Çoklu dil** | Türkçe / İngilizce arayüz |
+| **PWA** | Service worker, manifest; telefonda uygulama benzeri deneyim |
+
+## Teknoloji yığını
+
+**Backend**
+- ASP.NET Core 10 Web API
+- SQLite (yerel veritabanı)
+- JWT kimlik doğrulama
+
+**Frontend**
+- React 19 + Vite 8
+- TanStack React Query (canlı veri senkronizasyonu)
+- Leaflet (harita)
+- Lucide React (ikonlar)
+
+**Dağıtım**
+- Docker (çok aşamalı build)
+- [Render](https://render.com) ile HTTPS destekli canlı sunum
+
+## Kurulum
+
+### Gereksinimler
 
 - [.NET SDK 10](https://dotnet.microsoft.com/download)
-- [Node.js](https://nodejs.org/) (frontend geliştirme/derleme için)
+- [Node.js](https://nodejs.org/) 20+
 
-## Çalıştırma
-
-```bash
-# Backend (http://localhost:5000)
-cd HayatMobil.Api
-dotnet run
-```
-
-İlk kayıt olan kullanıcı PM (Kriz Komuta Merkezi) olur; sonraki kayıtlar afetzede rolüyle başlar.
-
-Production için önce frontend derleyin; çıktı `HayatMobil.Api/wwwroot` klasörüne yazılır:
+### Hızlı başlangıç (production build)
 
 ```bash
+git clone https://github.com/furkanartann/hayat-mobil.git
+cd hayat-mobil
+
 cd HayatMobil.Web
 npm install
 npm run build
+
 cd ../HayatMobil.Api
 dotnet run
 ```
 
-## Geliştirme (hot reload)
+Tarayıcıda: **http://localhost:5000**
+
+> İlk kayıt olan kullanıcı otomatik olarak **PM (Kriz Komuta Merkezi)** olur. Sonraki kayıtlar **Afetzede** rolüyle başlar.
+
+### Geliştirme modu (hot reload)
 
 ```bash
 # Terminal 1 — API
 cd HayatMobil.Api
 dotnet run
 
-# Terminal 2 — Frontend
+# Terminal 2 — Frontend (Vite dev server)
 cd HayatMobil.Web
 npm install
 npm run dev
 ```
 
-## Frontend mimarisi
+Geliştirmede frontend `http://localhost:5173` üzerinden API'ye `localhost:5000` ile bağlanır.
+
+## Canlı demo
+
+Proje, Docker ile [Render](https://render.com) üzerinde yayınlanabilir:
+
+1. GitHub reposunu Render'a bağla
+2. **Runtime:** Docker
+3. **Plan:** Free (demo için yeterli)
+
+Render otomatik HTTPS sağlar; mobil cihazdan aynı URL ile demo gösterilebilir.
+
+## Proje yapısı
 
 ```
-HayatMobil.Web/src/
-├── App.jsx                      # Provider zinciri + routing
-├── providers/                   # QueryClient + context birleştirme
-├── context/
-│   ├── I18nContext.jsx          # Dil
-│   ├── ShellContext.jsx         # Sekme, toast, mobil görünüm
-│   ├── AuthContext.jsx          # Oturum, giriş/kayıt
-│   └── AppContext.jsx           # useApp() facade
-├── features/
-│   ├── auth/hooks/              # useAuth
-│   ├── tickets/hooks/           # useTicketActions
-│   ├── missing/hooks/
-│   ├── inventory/hooks/ + components/
-│   ├── admin/hooks/
-│   ├── map/hooks/               # useLocation, useMapUi
-│   ├── dashboard/hooks/         # useMedicalActions
-│   ├── shared/hooks/            # React Query (useAppQueries)
-│   └── …/                       # UI sekmeleri ve paneller
-├── hooks/                       # Paylaşılan: useToast, useI18n, useNetworkQuality
-├── api/                         # client.js, queryClient.js
-├── lib/, components/, styles/
+hayat-mobil/
+├── HayatMobil.Api/          # Backend API + statik dosya sunucusu (wwwroot)
+│   ├── Endpoints/           # REST route modülleri
+│   ├── Services/            # İş kuralları
+│   ├── Data/                # SQLite şema ve migration
+│   └── Infrastructure/      # Auth, JWT, host
+├── HayatMobil.Web/          # React frontend (Vite)
+│   ├── src/features/        # Sekme ve rol bazlı modüller
+│   ├── src/components/      # Paylaşılan UI bileşenleri
+│   └── public/              # Logo, PWA manifest, service worker
+├── Dockerfile               # Frontend + API tek image
+└── README.md
 ```
 
-Sunucu verisi **TanStack React Query** ile yönetilir (4 sn polling). `useApp()` geriye dönük uyumluluk için tüm state'i tek noktadan sunar; ayrıca `useI18nContext()`, `useShellContext()`, `useAuthContext()` kullanılabilir.
+Frontend build çıktısı `HayatMobil.Api/wwwroot/` klasörüne yazılır; tek sunucu hem API hem arayüzü sunar.
 
-## Backend katmanları
+## Roller
 
-```
-HayatMobil.Api/
-├── Endpoints/       # HTTP route modülleri
-├── Models/          # API request DTO'ları
-├── Services/        # İş kuralları
-├── Domain/          # Saf domain yardımcıları
-├── Data/            # Veritabanı
-└── Infrastructure/  # Auth, host
-```
+| Rol | Görev |
+|-----|-------|
+| PM | Kriz komuta merkezi, personel ve afet yönetimi |
+| Afetzede | SOS talebi, güvenlik durumu |
+| Lojistik | Malzeme dağıtımı, iaşe talepleri |
+| Sağlık Paramedik / Doktor | Tıbbi müdahale süreçleri |
+| Arama Kurtarma | Kurtarma ve kayıp kişi |
+| Güvenlik | Güvenlik talepleri |
+| Mühendis / IT | Sensör ve altyapı |
+
+## Geliştirici
+
+**Furkan Artan**
+
+- GitHub: [@furkanartann](https://github.com/furkanartann)
+- Web: [furkanartan.com.tr](https://furkanartan.com.tr/)
+
+---
+
+<div align="center">
+
+*Afet anında koordinasyonu hızlandırmak için geliştirilmiştir.*
+
+</div>
