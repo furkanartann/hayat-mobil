@@ -1,10 +1,10 @@
-FROM node:22-alpine AS frontend
-WORKDIR /app
-COPY HayatMobil.Web/package.json HayatMobil.Web/package-lock.json ./HayatMobil.Web/
-RUN cd HayatMobil.Web && npm ci
-COPY HayatMobil.Web ./HayatMobil.Web
-COPY HayatMobil.Api ./HayatMobil.Api
-RUN cd HayatMobil.Web && npm run build
+FROM node:22-bookworm-slim AS frontend
+WORKDIR /app/HayatMobil.Web
+COPY HayatMobil.Web/package.json HayatMobil.Web/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY HayatMobil.Web/ ./
+COPY HayatMobil.Api/ /app/HayatMobil.Api/
+RUN npm run build
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS publish
 WORKDIR /src
